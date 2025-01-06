@@ -231,6 +231,9 @@ def get_arch_name(*, bits: int | None = None) -> str:
     if sys.platform == "darwin" and machine == "arm64":
         return "aarch64"
 
+    if sys.platform == "loong64":
+        return "loongarch64"
+
     if bits is None:
         # c.f. https://github.com/pypa/packaging/pull/711
         bits = 8 * struct.calcsize("P")
@@ -287,6 +290,7 @@ def _fixup_musl_libc_soname(libc: Libc, arch: str, whitelist):
             "ppc64le": "libc.musl-ppc64le.so.1",
             "armv7l": "libc.musl-armv7.so.1",
             "riscv64": "libc.musl-riscv64.so.1",
+            "loongarch64": "libc.musl-loongarch64.so.1",
         }
     }
     new_whitelist = []
